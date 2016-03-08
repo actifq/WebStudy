@@ -1,0 +1,7 @@
+INDEX VERSION 1.3+C:\webDev\webStudy\EmpProject\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+970091442.index
+1804468235.index
+101333804.index
+2644997241.index
+3372085400.index
+498004868.index

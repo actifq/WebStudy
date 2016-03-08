@@ -1,0 +1,2 @@
+INDEX VERSION 1.127+C:\webDev\webStudy\EmpProject\.metadata\.plugins\org.eclipse.jdt.core
+498004868.index
