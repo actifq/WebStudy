@@ -11,7 +11,15 @@ public class HeaderServlet  extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		response.setContentType("text/html;charset=EUC-KR");
+		PrintWriter out=response.getWriter();
+		out.println("<html>");
+		out.println("<body>");
+		out.println("<center>");
+		out.println("<h3>Çì´õ</h3>");
+		out.println("</html>");
+		out.println("</body>");
+		out.println("</center>");
 		
 	}
 

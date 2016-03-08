@@ -11,7 +11,17 @@ public class LoginServlet  extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		response.setContentType("text/html;charset=EUC-KR");
+		PrintWriter out=response.getWriter();
+		out.println("html");
+		out.println("body");
+		out.println("center");
+		out.println("<h3>·Î±×ÀÎ</h3>");
+		out.println("/center");
+		out.println("/body");
+		out.println("/html");
+		
+		
 		
 	}
 
