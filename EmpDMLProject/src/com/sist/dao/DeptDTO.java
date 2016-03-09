@@ -20,6 +20,7 @@ public class DeptDTO {
 		public String getLoc() {
 			return loc;
 		}
+		
 		public void setLoc(String loc) {
 			this.loc = loc;
 		}

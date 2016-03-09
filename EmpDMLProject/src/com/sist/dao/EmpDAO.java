@@ -1,5 +1,8 @@
 package com.sist.dao;
 import java.util.*;
+
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import java.sql.*;
 public class EmpDAO {
 	// 연결 객체 얻기
@@ -7,13 +10,14 @@ public class EmpDAO {
 		 // 문장 전송 객체 
 		 private PreparedStatement ps;
 		 // URL
-		 private final String URL="jdbc:oracle:thin:@211.238.142.72:1521:ORCL";
+		 private final String URL="jdbc:oracle:thin:@211.238.142.81:1521:ORCL";
 		 // DRIVER 
 		 private final String DRIVER="oracle.jdbc.driver.OracleDriver";
 		 // USER NAME
 		 private final String USER="scott";
 		 // PWD
 		 private final String PWD="tiger";
+	
 		 // 드라이버 등록 
 		 public EmpDAO()
 		 {
@@ -106,6 +110,52 @@ public class EmpDAO {
 				 disConnection();
 			 }
 			 return total;
+		 }
+		 
+		 public ArrayList<String> getMgr(){
+			 
+			 ArrayList<String> mgr=new ArrayList<String>();
+			 
+			 try{
+				 getConnection();
+				 String sql="SELECT DISTINCT empno FROM emp ORDER BY empno asc";
+				 ps=conn.prepareStatement(sql);
+				 ResultSet rs=ps.executeQuery();
+				 
+				 while(rs.next())
+				 {
+					 mgr.add(rs.getString(1));
+				 }
+				 				 
+			 }catch(Exception ex){
+				 System.out.println(ex.getMessage());
+			 }
+			 finally{
+				 disConnection();
+			 }
+			 return mgr;
+		 }
+		 
+		 public ArrayList<String>getJob(){
+			 ArrayList<String> job=new ArrayList<String>();
+			 
+			 try{
+				 
+				 getConnection();
+				 String sql="SELECT DISTINCT job FROM emp ORDER BY job asc";
+				 ps=conn.prepareStatement(sql);
+				 ResultSet rs=ps.executeQuery();
+				 
+				 while(rs.next()){
+					 job.add(rs.getString(1));
+				 }
+				 
+			 }catch(Exception ex){
+				 System.out.println(ex.getMessage());
+			 }finally{
+				 disConnection();
+			 }
+			 return job;
 		 }
 }
 

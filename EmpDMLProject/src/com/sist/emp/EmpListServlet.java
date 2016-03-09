@@ -47,7 +47,7 @@ public class EmpListServlet extends HttpServlet {
 		out.println("</tr>");
 		// 데이터 출력 
 		EmpDAO dao=new EmpDAO();
-		List<EmpDTO> list=dao.empAllData(curpage);
+		List<EmpDTO> list=dao. empAllData(curpage);
 		totalpage=dao.empTotalPage();
 		for(EmpDTO d:list)
 		{
@@ -59,6 +59,7 @@ public class EmpListServlet extends HttpServlet {
 			out.println("<td align=center>"+d.getDeptno()+"</td>");
 			out.println("</tr>");
 		}
+		
 		out.println("</table>");
 		out.println("<hr width=500>");
 		out.println("<table border=0 width=500 cellspacing=0>");
