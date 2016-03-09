@@ -7,7 +7,7 @@ public class EmpDAO {
 		 // 문장 전송 객체 
 		 private PreparedStatement ps;
 		 // URL
-		 private final String URL="jdbc:oracle:thin:@211.238.142.81:1521:ORCL";
+		 private final String URL="jdbc:oracle:thin:@211.238.142.72:1521:ORCL";
 		 // DRIVER 
 		 private final String DRIVER="oracle.jdbc.driver.OracleDriver";
 		 // USER NAME
@@ -44,7 +44,6 @@ public class EmpDAO {
 			 }catch(Exception ex){}
 		 }
 		 // 기능 
-		 
 		 public List<EmpDTO> empAllData(int page)
 		 {
 			 List<EmpDTO> list=
@@ -86,7 +85,6 @@ public class EmpDAO {
 			 }
 			 return list;
 		 }
-		 
 		 public int empTotalPage()
 		 {
 			 int total=0;
