@@ -59,7 +59,6 @@ public class EmpListServlet extends HttpServlet {
 			out.println("<td align=center>"+d.getEmpno()+"</td>");
 			out.println("<td align=center>");
 			out.println("<a href=EmpDetailServlet?empno="+d.getEmpno()+">");
-			
 			out.println(d.getEname());
 			out.println("</a>");
 			out.println("</td>");

@@ -5,7 +5,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.sist.dao.EmpDAO;
 
 /*
@@ -27,7 +26,10 @@ public class EmpDetailServlet extends HttpServlet {
 		// 응답 타입 결정 : text/html,text/xml
 		response.setContentType("text/html;charset=EUC-KR");
 		//EmpDAO d=new EmpDAO();
+		int getEname=0;
 		
+		String strPage=request.getParameter("empno");
+		getEname=Integer.parseInt(strPage);
 		
 		PrintWriter out = response.getWriter();
 		// getOutputStream
@@ -43,6 +45,9 @@ public class EmpDetailServlet extends HttpServlet {
 		out.println("<td width=25% align=right>이름</td>");
 		out.println("<td width=75% align=left>");
 		out.println("<input type=text size=12 name=ename>");
+		
+		
+		
 		out.println("</td>");
 		out.println("</tr>");
 

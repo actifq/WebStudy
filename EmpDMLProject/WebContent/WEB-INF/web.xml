@@ -23,12 +23,12 @@
   
   <servlet>
     <servlet-name>detail</servlet-name>
-    <servlet-class>com.sist.emp.EmpServlet</servlet-class>
+    <servlet-class>com.sist.emp.EmpDetailServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <!--  -->
     <servlet-name>detail</servlet-name>
-    <url-pattern>/DetailServlet</url-pattern>
+    <url-pattern>/EmpDetailServlet</url-pattern>
   </servlet-mapping>
 
   <welcome-file-list>
