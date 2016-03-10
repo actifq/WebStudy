@@ -1,11 +1,14 @@
 package com.sist.emp;
 
 import java.io.*;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.sist.dao.EmpDAO;
+import com.sist.dao.EmpDTO;
 
 /*
  * 예약 프로그램 : (영화), 콘도, 열차, 맛집,여행사
@@ -26,12 +29,13 @@ public class EmpDetailServlet extends HttpServlet {
 		// 응답 타입 결정 : text/html,text/xml
 		response.setContentType("text/html;charset=EUC-KR");
 		//EmpDAO d=new EmpDAO();
-		int getEname=0;
 		
-		String strPage=request.getParameter("empno");
-		getEname=Integer.parseInt(strPage);
-		
+		String Empno=request.getParameter("empno");
 		PrintWriter out = response.getWriter();
+		
+		EmpDAO dao=new EmpDAO();
+		
+		
 		// getOutputStream
 		out.println("<html>");
 		out.println("<body>");
@@ -44,9 +48,13 @@ public class EmpDetailServlet extends HttpServlet {
 		out.println("<tr>");
 		out.println("<td width=25% align=right>이름</td>");
 		out.println("<td width=75% align=left>");
-		out.println("<input type=text size=12 name=ename>");
 		
-		
+		out.println("<select name=ename>");
+		out.println("<Ename>");
+		out.println("</select>");
+		out.println("<input size=12>");
+		out.println("<name=ename>");
+				
 		
 		out.println("</td>");
 		out.println("</tr>");
@@ -102,6 +110,14 @@ public class EmpDetailServlet extends HttpServlet {
 		out.println("</select>");
 		out.println("</td>");
 		out.println("</tr>");
+		
+		out.println("<tr>");
+		out.println("<td colspan=2 align=center>");
+		out.println("<input type=submit value=등록>");
+		out.println("<input type=button value=취소 onclick=\"javascript:history.back()\">");
+		out.println("</td>");
+		out.println("</tr>");
+		
 
 		out.println("</table>");
 		out.println("</form>");

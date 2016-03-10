@@ -48,8 +48,7 @@ public class EmpListServlet extends HttpServlet {
 		out.println("<th>입사일</th>");
 		out.println("<th>부서번호</th>");
 		out.println("</tr>");
-		// 데이터 출력 
-		
+		// 데이터 출력 		
 		EmpDAO dao=new EmpDAO();
 		List<EmpDTO> list=dao. empAllData(curpage);
 		totalpage=dao.empTotalPage();
