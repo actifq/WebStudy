@@ -47,7 +47,7 @@ public class EmpDAO {
 				 if(conn!=null) conn.close();
 			 }catch(Exception ex){}
 		 }
-		 // 기능 
+		 // 기능  ==> List selectList(sql,int page)
 		 public List<EmpDTO> empAllData(int page)
 		 {
 			 List<EmpDTO> list=
@@ -158,7 +158,139 @@ public class EmpDAO {
 			 }
 			 return job;
 		 }
+	
+		 
+		 //INSERT 관련
+		 public List<String> empGetJob(){
+			 List<String> list=new ArrayList<String>();
+			 
+			 try{
+				 getConnection();
+				 String sql="SELECT DISTINCT job FROM emp";
+				 ps=conn.prepareStatement(sql);
+				 ResultSet rs=ps.executeQuery();
+				 
+				 while(rs.next()){
+					 list.add(rs.getString(1));
+				 }rs.close();
+			 }catch(Exception ex){
+				 System.out.println(ex.getMessage());
+			 }finally{
+				 disConnection();
+			 }			 
+			 return list;
+		 }
+		 
+		 public List<Integer> empGetMger(){
+			 List<Integer> list=new ArrayList<Integer>();
+			 
+			 try{
+				 getConnection();
+				 String sql="SELECT DISTINCT mgr FROM emp WHERE mgr IS NOT NULL";
+				 ps=conn.prepareStatement(sql);
+				 ResultSet rs=ps.executeQuery();
+				 
+				 while(rs.next()){
+					 list.add(rs.getInt(1));
+				 }rs.close();
+			 }catch(Exception ex){
+				 System.out.println(ex.getMessage());
+			 }finally{
+				 disConnection();
+			 }			 
+			 return list;
+		 }
+		 
+
+			//Insert
+			public void empInsert(EmpDTO d){
+				try{
+					getConnection();
+					String sql="INSERT INTO emp VALUES("
+							        +"(SELECT MAX(empno)+1 FROM emp),"
+							        +"?,?,?,SYSDATE,?,?,?)";
+					ps=conn.prepareStatement(sql);
+					
+					//물음표에 들어가는 값을 설정(오라클은 1번부터 시작한다 !!)
+					//물음표 나왔을때 물음표 갯수와 ps.set 갯수와 일치해야함
+					
+					ps.setString(1, d.getEname());   //홍길동 =>'홍길동'자동처리
+					ps.setString(2,  d.getJob());
+					ps.setInt(3, d.getMgr());
+					ps.setInt(4, d.getSal());
+					ps.setInt(5, d.getComm());
+					ps.setInt(6, d.getDeptno());
+					
+					ps.executeUpdate();
+				// ResultSet은 값을 저장해서 날려야하는 것
+				// ExecuteUpdate 자동 커밋이됨.
+									
+					// 사용자가 보낸것들은 물음표로 처리
+				}catch(Exception ex){
+					System.out.println(ex.getMessage());
+				}finally{
+					disConnection();
+				}
+			}
+			
+			public EmpDTO empDetailData(int empno){
+				EmpDTO d=new EmpDTO();
+				
+				try{
+					
+					getConnection();
+					
+					String sql="SELECT empno,ename,job,mgr,hiredate,sal,comm,dname,loc "
+									+"FROM emp JOIN dept "
+									+"ON emp.deptno=dept.deptno "
+									+"AND empno=?";
+					ps=conn.prepareStatement(sql);
+					ps.setInt(1, empno);
+					ResultSet rs=ps.executeQuery();
+					rs.next();
+					 d.setEmpno(rs.getInt(1));
+					 d.setEname(rs.getString(2));
+					 d.setJob(rs.getString(3));
+					 d.setMgr(rs.getInt(4));
+					 d.setHiredate(rs.getDate(5));
+					 d.setSal(rs.getInt(6));
+					 d.setComm(rs.getInt(7));
+					 d.getDdto().setDname(rs.getString(8));
+					 d.getDdto().setLoc(rs.getString(9));
+					 rs.close();
+					
+				}catch(Exception ex){
+					
+					System.out.println(ex.getMessage());
+					
+				}finally{
+					
+					disConnection();
+					
+				}
+				
+				return d;
+			}
 }
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

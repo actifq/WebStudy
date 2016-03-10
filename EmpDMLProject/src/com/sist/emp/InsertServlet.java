@@ -134,7 +134,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sist.dao.EmpDAO;
 import com.sist.dao.EmpDTO;
-
+import java.util.*;
 public class InsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -143,6 +143,10 @@ public class InsertServlet extends HttpServlet {
 		// 응답 타입 결정 : text/html,text/xml
 		response.setContentType("text/html;charset=EUC-KR");
 
+		EmpDAO dao=new EmpDAO();
+		List<String> jList=dao.empGetJob();
+		List<Integer> mList=dao.empGetMger() ;
+		
 		PrintWriter out = response.getWriter();
 		// getOutputStream
 		out.println("<html>");
@@ -164,11 +168,13 @@ public class InsertServlet extends HttpServlet {
 		out.println("<td width=75% align=left>");
 		out.println("<select name=job>");
 
-		EmpDAO dao1=new EmpDAO();
-		ArrayList<String> getJob=dao1.getJob();
-		for(String d:getJob){
-			out.println("<option>"+d+"</option>");	
+		for(String job:jList){
+			out.println("<option>");
+			out.println(job);
+			out.println("</option>");
 		}
+		
+
 		
 		out.println("</select>");
 		out.println("</td>");
@@ -179,12 +185,12 @@ public class InsertServlet extends HttpServlet {
 		out.println("<td width=75% align=left>");
 		out.println("<select name=mgr>");
 
-		EmpDAO dao2=new EmpDAO();
-		ArrayList<String> getMgr=dao2.getMgr();
-		for(String d:getMgr){
-			out.println("<option>"+d+"</option>");
+		for(int mgr:mList){
+			out.println("<option>");
+			out.println(mgr);
+			out.println("</option>");
 		}
-				
+		
 
 		out.println("</select>");
 		out.println("</td>");
@@ -245,10 +251,47 @@ public class InsertServlet extends HttpServlet {
 		// 값을 받는다
 		request.setCharacterEncoding("EUC-KR");
 		String ename = request.getParameter("ename");
-		System.out.println(ename);
+		String job = request.getParameter("job");
+		String mgr = request.getParameter("mgr");
+		String sal = request.getParameter("sal");
+		String comm = request.getParameter("comm");
+		String deptno = request.getParameter("deptno");
+		
+		//DTO에 다시 다 모아주기
+		EmpDTO d=new EmpDTO();
+		d.setEname(ename);
+		d.setJob(job);
+		d.setMgr(Integer.parseInt(mgr));
+		d.setSal(Integer.parseInt(sal));
+		d.setComm(Integer.parseInt(comm));
+		d.setDeptno(Integer.parseInt(deptno));
+		
 		// DAO => Insert
+		EmpDAO dao=new EmpDAO();
+		dao.empInsert(d);
 		// 페이지 이동 (List)
 		response.sendRedirect("EmpListServlet");
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

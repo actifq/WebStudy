@@ -14,6 +14,9 @@ public class EmpListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 응답 타입 결정 : text/html,text/xml
 		response.setContentType("text/html;charset=EUC-KR");
+		
+		
+		
 		// HTML => 요청한 사람에 전송 
 		// TCP  ==> Stream 
 		int curpage=0;
@@ -46,6 +49,7 @@ public class EmpListServlet extends HttpServlet {
 		out.println("<th>부서번호</th>");
 		out.println("</tr>");
 		// 데이터 출력 
+		
 		EmpDAO dao=new EmpDAO();
 		List<EmpDTO> list=dao. empAllData(curpage);
 		totalpage=dao.empTotalPage();
@@ -53,7 +57,12 @@ public class EmpListServlet extends HttpServlet {
 		{
 			out.println("<tr>");
 			out.println("<td align=center>"+d.getEmpno()+"</td>");
-			out.println("<td align=center>"+d.getEname()+"</td>");
+			out.println("<td align=center>");
+			out.println("<a href=EmpDetailServlet?empno="+d.getEmpno()+">");
+			
+			out.println(d.getEname());
+			out.println("</a>");
+			out.println("</td>");
 			out.println("<td align=center>"+d.getJob()+"</td>");
 			out.println("<td align=center>"+d.getHiredate().toString()+"</td>");
 			out.println("<td align=center>"+d.getDeptno()+"</td>");
@@ -78,5 +87,15 @@ public class EmpListServlet extends HttpServlet {
 		out.println("</html>");
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
