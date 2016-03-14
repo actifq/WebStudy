@@ -30,10 +30,11 @@ public class EmpDetailServlet extends HttpServlet {
 		response.setContentType("text/html;charset=EUC-KR");
 		//EmpDAO d=new EmpDAO();
 		
+		EmpDAO dao=new EmpDAO();
 		String Empno=request.getParameter("empno");
 		PrintWriter out = response.getWriter();
 		
-		EmpDAO dao=new EmpDAO();
+		
 		
 		
 		// getOutputStream
