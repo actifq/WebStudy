@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<a href="output.jsp?name=È«±æµ¿">Àü¼Û</a>
 </body>
 </html>
