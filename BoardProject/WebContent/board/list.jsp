@@ -1,23 +1,23 @@
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*,com.board.dao.*, java.text.*"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR" import="java.util.*,com.board.dao.*, java.text.*"%>
 
 <%
 	BoardDAO dao=new BoardDAO();
 	String strPage=request.getParameter("page");
 	if(strPage==null){
-		strPage="1";  }// list.jsp?page=1 ê¸°ë³¸ìœ¼ë¡œ ì…‹íŒ…í•˜ê³  ë“¤ì–´ê°
+		strPage="1";  }// list.jsp?page=1 ±âº»À¸·Î ¼ÂÆÃÇÏ°í µé¾î°¨
 		
 	int curpage=Integer.parseInt(strPage);
 	List<BoardDTO> list=dao.boardListData(curpage);
-	int totalpage=dao.boardTotal();   // ì´íŽ˜ì´ì§€ ê³„ì‚°
+	int totalpage=dao.boardTotal();   // ÃÑÆäÀÌÁö °è»ê
 	int count=dao.boardCount();
 	count=count-((curpage*10)-10);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="board.css">
 
@@ -41,13 +41,13 @@
 		<table border=0 width=700>
 			<tr bgcolor="#ccccff">
 				<th width=10%>No</th>
-				<th width=45%>ì œëª©</th>
-				<th width=15%>ì´ë¦„</th>
-				<th width=20%>ìž‘ì„±ì¼</th>
-				<th width=10%>ì¡°íšŒìˆ˜</th>
+				<th width=45%>Á¦¸ñ</th>
+				<th width=15%>ÀÌ¸§</th>
+				<th width=20%>ÀÛ¼ºÀÏ</th>
+				<th width=10%>Á¶È¸¼ö</th>
 			</tr>
 
-			<!-- ë°ì´í„° ì¶œë ¥ -->
+			<!-- µ¥ÀÌÅÍ Ãâ·Â -->
 			<%
 			for(BoardDTO d:list){
 			%>
@@ -90,11 +90,11 @@
 		<table border=0 width=700>
 			<tr>
 				<td align="left"><select name=fs>
-						<option value="name">ì´ë¦„</option>
-						<option value="subject">ì œëª©</option>
-						<option value="content">ë‚´ìš©</option>
+						<option value="name">ÀÌ¸§</option>
+						<option value="subject">Á¦¸ñ</option>
+						<option value="content">³»¿ë</option>
 				</select> <input type=text name=ss size=12> <input type="image"
-					src="image/btn_search.gif"> <!-- imageëŠ” javaì˜ ë²„íŠ¼ê³¼ë¹„ìŠ·(ì´ë¯¸ì§€ íŒŒì¼ë¡œ ë§í¬ê±¸ìˆ˜ìžˆìŒ -->
+					src="image/btn_search.gif"> <!-- image´Â javaÀÇ ¹öÆ°°úºñ½Á(ÀÌ¹ÌÁö ÆÄÀÏ·Î ¸µÅ©°É¼öÀÖÀ½ -->
 				</td>
 				<td align="right">
 				
