@@ -75,12 +75,120 @@ public class BoardDAO {
 	}
 	
 	//  2) 내용 보기 ==> SELECT ~ WHERE
+	public BoardDTO boardContentData(int no){
+		BoardDTO d=new BoardDTO();
+		
+		try{
+			getConnection();
+			String sql="UPDATE board SET "
+						   +"hit=hit+1 "
+						   + "WHERE no=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			ps.executeUpdate();
+			ps.close();
+			
+			//데이터 읽기 (조회수 증가시키고 증가된 조회수 읽어옴)
+			sql="SELECT no,name,subject,content,regdate,hit "
+				+ "FROM board "
+				+ "WHERE no=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			d.setNo(rs.getInt(1));
+			d.setName(rs.getString(2));
+			d.setSubject(rs.getString(3));
+			d.setContent(rs.getString(4));
+			d.setRegdate(rs.getDate(5));
+			d.setHit(rs.getInt(6));
+			rs.close();
+			
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}finally{
+			disConnection();
+		}
+		
+		return d;
+	}
+	
 	//  3) 추가 ==> INSERT
 	//  4) 수정 ==> UPDATE
 	//  5) 답변 ==> INSERT
 	//  6) 삭제 ==> DELETE
 	//  7) 찾기 ==> LIKE ~
+	
+	
 	//  8) 총 페이지 구하기 ==> CEIL(COUNT(*)/10)
+	
+	public int boardTotal(){
+		int total=0;
+		try{
+			
+			getConnection();
+			String sql="SELECT CEIL(COUNT(*)/10) FROM board";
+			ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			total=rs.getInt(1);
+			rs.close();
+			
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}finally{
+			disConnection();
+		}
+		return total;
+	}
+	
+/*	INSERT INTO board(no,name,subject,content,pwd,group_id,group_step,group_tab,root,depth)
+	VALUES((SELECT NVL(MAX(no)+1,1) FROM board),'홍길동','답변형게시판 제작','다음은 댓글형..','1234',
+	32,1,1,32,1);
+*/
+	public void boardInsert(BoardDTO d){
+		try{
+        	getConnection();
+        	String sql="INSERT INTO board(no,name,subject,content,pwd,group_id) "
+        			  +"VALUES((SELECT NVL(MAX(no)+1,1) FROM board),"
+        			  +"?,?,?,?,"
+        			  +"(SELECT NVL(MAX(group_id)+1,1) FROM board))";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, d.getName());
+			ps.setString(2, d.getSubject());
+			ps.setString(3, d.getContent());
+			ps.setString(4, d.getPwd());
+			//실행요청
+			ps.executeUpdate();
+							
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}finally{
+			disConnection();
+		}
+	}
+	
+	public int boardCount(){
+		int total=0;
+		try{
+			
+			getConnection();
+			String sql="SELECT COUNT(*) FROM board";
+			ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			total=rs.getInt(1);
+			rs.close();
+			
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}finally{
+			disConnection();
+		}
+		return total;
+	}
+	
 }
 
 
