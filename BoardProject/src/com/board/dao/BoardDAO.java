@@ -8,7 +8,7 @@ public class BoardDAO {
 	private PreparedStatement ps;
 	private final String URL="jdbc:oracle:thin:@211.238.142.81:1521:ORCL";
 	
-	// 1. jdbc µå¶óÀÌ¹ö µî·Ï
+	// 1. jdbc ë“œë¼ì´ë²„ ë“±ë¡
 	public BoardDAO(){
 		try{
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -17,7 +17,7 @@ public class BoardDAO {
 		}
 	}
 	
-	// 2. ¿¬°á°´Ã¼ ¾ò±â
+	// 2. ì—°ê²°ê°ì²´ ì–»ê¸° 
 	public void getConnection(){
 		try{
 			conn=DriverManager.getConnection(URL,"scott","tiger");
@@ -26,7 +26,7 @@ public class BoardDAO {
 		}
 	}
 	
-	// 3. ¿¬°áÇØÁ¦
+	// 3. ì—°ê²°ê°ì²´
 	public void disConnection(){
 		try{
 			if(ps!=null) ps.close();
@@ -36,8 +36,8 @@ public class BoardDAO {
 		}
 	}
 	
-	// 4. ±â´É
-	//  1) ¸ñ·Ï Ãâ·Â ==> SELECT
+	// 4. ê¸°ëŠ¥
+	//  1) ëª©ë¡ ==> SELECT
 	
 	public List<BoardDTO> boardListData(int page){
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
@@ -50,7 +50,7 @@ public class BoardDAO {
 			ps=conn.prepareStatement(sql);
 			ResultSet rs=ps.executeQuery();
 			int i=0;
-			int j=0;  // while ¹® µ¹¾Æ°¡´Â È½¼ö
+			int j=0;  
 			int pagecnt=(page*10)-10;
 			while(rs.next()){
 				if(i<10 && j>=pagecnt){
@@ -74,7 +74,7 @@ public class BoardDAO {
 		return list;
 	}
 	
-	//  2) ³»¿ë º¸±â ==> SELECT ~ WHERE
+	//  2) ë‚´ìš©ë³´ê¸° ==> SELECT ~ WHERE
 	public BoardDTO boardContentData(int no){
 		BoardDTO d=new BoardDTO();
 		
@@ -88,7 +88,7 @@ public class BoardDAO {
 			ps.executeUpdate();
 			ps.close();
 			
-			//µ¥ÀÌÅÍ ÀÐ±â (Á¶È¸¼ö Áõ°¡½ÃÅ°°í Áõ°¡µÈ Á¶È¸¼ö ÀÐ¾î¿È)
+			//ë°ì´í„° ì½ì–´ì˜¤ê¸° 
 			sql="SELECT no,name,subject,content,regdate,hit "
 				+ "FROM board "
 				+ "WHERE no=?";
@@ -114,15 +114,47 @@ public class BoardDAO {
 		return d;
 	}
 	
-	//  3) Ãß°¡ ==> INSERT
-	//  4) ¼öÁ¤ ==> UPDATE
-	//  5) ´äº¯ ==> INSERT
-	//  6) »èÁ¦ ==> DELETE
-	//  7) Ã£±â ==> LIKE ~
+	//  3) ì¶”ê°€==> INSERT
+	public void boardInsert(BoardDTO d){
+		try{
+        	getConnection();
+        	String sql="INSERT INTO board(no,name,subject,content,pwd,group_id) "
+        			  +"VALUES((SELECT NVL(MAX(no)+1,1) FROM board),"
+        			  +"?,?,?,?,"
+        			  +"(SELECT NVL(MAX(group_id)+1,1) FROM board))";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, d.getName());
+			ps.setString(2, d.getSubject());
+			ps.setString(3, d.getContent());
+			ps.setString(4, d.getPwd());
+			//ì‹¤í–‰ìš”ì²­
+			ps.executeUpdate();
+							
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}finally{
+			disConnection();
+		}
+	}
+	
+	//  4) ìˆ˜ì • ==> UPDATE
+	public void boardUpdate(BoardDTO d){
+		try{
+			getConnection();
+			
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
+
+		}finally{
+			disConnection();
+		}
+	}
+	//  5) ë‹µë³€ ==> INSERT
+	//  6) ì‚­ì œ ==> DELETE
+	//  7) ì°¾ê¸° ==> LIKE ~
 	
 	
-	//  8) ÃÑ ÆäÀÌÁö ±¸ÇÏ±â ==> CEIL(COUNT(*)/10)
-	
+	//  8) ì´ íŽ˜ì´ì§€ êµ¬í•˜ê¸° ==> CEIL(COUNT(*)/10)
 	public int boardTotal(){
 		int total=0;
 		try{
@@ -141,32 +173,6 @@ public class BoardDAO {
 			disConnection();
 		}
 		return total;
-	}
-	
-/*	INSERT INTO board(no,name,subject,content,pwd,group_id,group_step,group_tab,root,depth)
-	VALUES((SELECT NVL(MAX(no)+1,1) FROM board),'È«±æµ¿','´äº¯Çü°Ô½ÃÆÇ Á¦ÀÛ','´ÙÀ½Àº ´ñ±ÛÇü..','1234',
-	32,1,1,32,1);
-*/
-	public void boardInsert(BoardDTO d){
-		try{
-        	getConnection();
-        	String sql="INSERT INTO board(no,name,subject,content,pwd,group_id) "
-        			  +"VALUES((SELECT NVL(MAX(no)+1,1) FROM board),"
-        			  +"?,?,?,?,"
-        			  +"(SELECT NVL(MAX(group_id)+1,1) FROM board))";
-			ps=conn.prepareStatement(sql);
-			ps.setString(1, d.getName());
-			ps.setString(2, d.getSubject());
-			ps.setString(3, d.getContent());
-			ps.setString(4, d.getPwd());
-			//½ÇÇà¿äÃ»
-			ps.executeUpdate();
-							
-		}catch(Exception ex){
-			System.out.println(ex.getMessage());
-		}finally{
-			disConnection();
-		}
 	}
 	
 	public int boardCount(){
@@ -190,44 +196,6 @@ public class BoardDAO {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

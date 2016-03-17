@@ -44,27 +44,27 @@
 		<table border=1 bordercolor="black" width=500 cellpadding="0"
 			cellspacing="0">
 			<tr height=27>
-				<td width=20% align=center bgcolor=#ccccff>번호</td>
+				<td width=20% align=center bgcolor=#ccccff>��ȣ</td>
 				<td width=30% align=center><%=d.getNo()%></td>
-				<td width=20% align=center bgcolor=#ccccff>작성일</td>
+				<td width=20% align=center bgcolor=#ccccff>��ȸ��</td>
 				<td width=30% align=center><%=d.getRegdate().toString() %></td>
 			</tr>
 
 			<tr height=27>
-				<td width=20% align=center bgcolor=#ccccff>이름</td>
+				<td width=20% align=center bgcolor=#ccccff>�̸�</td>
 				<td width=30% align=center><%=d.getName() %></td>
-				<td width=20% align=center bgcolor=#ccccff>조회수</td>
+				<td width=20% align=center bgcolor=#ccccff>��ȸ��</td>
 				<td width=30% align=center><%=d.getHit() %></td>
 			</tr>
 
 			<tr height=27>
-				<td width=20% align=center bgcolor=#ccccff>제목</td>
+				<td width=20% align=center bgcolor=#ccccff>����</td>
 				<td width=30% align=left colspan="3"><%=d.getSubject() %></td>
 			</tr>
 
 			<tr>
-				<td colspan="4" align="left" valign="top" height=200> <!-- td는 한줄문자형이고, pre는 엔터 그대로 나오는거 -->
-					<pre><%=d.getContent() %></pre> <!-- preview 있는 그대로 출력해줭!! -->
+				<td colspan="4" align="left" valign="top" height=200>
+					<pre><%=d.getContent() %></pre>
 				</td>
 			</tr>
 
@@ -89,9 +89,17 @@
 			
 			<tr id="delTr" style="display:none">
 			<td align="right">
-			비밀번호:
+			��й�ȣ:
 			<input type="password" name=pwd size=10>
-			<input type="button" value="삭제">
+			<input type="button" value="����">
+			</td>
+			</tr>
+			
+			<tr id="delTr" style="display:none">
+			<td align="right">
+			��й�ȣ:
+			<input type="password" name=pwd size=10>
+			<input type="button" value="����">
 			</td>
 			</tr>
 			
