@@ -1,4 +1,52 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" 
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR" import="com.board.dao.*"%>
+<%
+    String strNo=request.getParameter("no");
+    String strPage=request.getParameter("page");
+    BoardDAO dao=new BoardDAO();
+    BoardDTO d=dao.boardContentData(Integer.parseInt(strNo));
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.js"></script>
+<script type="text/javascript">
+var i=0;
+$(function(){
+	$('#delBtn').click(function(){
+		if(i==0)
+		{
+			$('#delTr').show();
+			$('#delBtn').attr("src","image/btn_cancel.gif");
+			i=1;
+		}
+		else
+		{
+			$('#delTr').hide();
+			$('#delBtn').attr("src","image/btn_delete.gif");
+			i=0;
+		}
+	});
+	$('#delBtn1').click(function(){
+		var pwd=$('#pwd').val();
+		if(pwd.trim()=="")
+		{
+			$('#delTr').show();
+			$('#pwd').focus();
+			return;
+		}
+		$('#delfrm').submit();
+	});
+});
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="board.css">
+
+</head>
+
+<%-- <%@ page language="java" contentType="text/html; charset=EUC-KR" 
 	pageEncoding="EUC-KR" import="com.board.dao.*"
 %>
 
@@ -29,6 +77,16 @@
 				i=0;
 			}				
 		});
+		
+		$('delBtn1').click(function(){
+			var pwd=$('#pwd').val();
+			if(pwd.trin()==""){
+				$('#delTr').show();
+				$('#pwd').focus();
+				return;
+			}
+			$('#delfrm').submit();
+		});
 	});
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -36,7 +94,35 @@
 
 <link rel="stylesheet" type="text/css" href="board.css">
 
-</head>
+</head> --%>
+<%--
+		
+		get 방식
+		delete.jsp?pwd=&no=1&page=3 
+				
+		post 방식
+		pwd=&no=1&page=3
+		
+		GET방식
+		open("delete.jsp?pwd=&no=1&page=3","GET")
+		send()
+		
+		POST방식
+		open("delete.jsp","POST")
+		send(pwd=&no=1&page=3)
+		
+		pwd=&no=1&page=3 ==> pwd=""
+		no=1&page=3			  ==> pwd=null
+		
+		getParameter("pwd");   ==> null
+		getParameter("pwd");   ==> 공백
+		
+		if(pwd==null || pwd.equeals(""))
+		
+		
+		list.jsp				==> page null
+		list.jsp?page=	==> page 
+ --%>
 <body>
 	
 	<center>
@@ -72,12 +158,39 @@
 
 
 		</table>
+  <table border=0 width=500>
+      <tr>
+        <td align="right">
+         <a href="reply.jsp?no=<%=strNo%>&page=<%=strPage%>">
+         <img src="image/btn_reply.gif" border=0></a>
+         <img src="image/btn_modify.gif">
+         <img src="image/btn_delete.gif" id="delBtn">
+         <a href="list.jsp?page=<%=strPage%>">
+         <img src="image/btn_list.gif" border=0></a>
+        </td>
+      </tr>
+      <tr id="delTr" style="display:none">
+        <td align="right">
+        <form method=post action="delete.jsp" id="delfrm">
+                   비밀번호:<input type="password" name=pwd size=10 id="pwd">
+        <input type="hidden" name=no value="<%=strNo%>">
+        <input type="hidden" name=page value="<%=strPage%>">
+        <input type=button value="삭제" id="delBtn1">
+        </form>
+        </td>
+      </tr>
+    </table>
+  </center>
+</body>
+</html>
 
-		<table border=0 width=500>
+<%-- 		<table border=0 width=500>
 			
 			<tr>
 				<td align="right">
-				    <img src="image/btn_reply.gif">
+				    <a href="reply.jsp?no=<%=strNo%>&page=<%=strPage%>">
+				    <img src="image/btn_reply.gif" border=0>
+				    </a>
 					<img src="image/btn_modify.gif">
 					 
 					 <img src="image/btn_delete.gif" id="delBtn">
@@ -90,17 +203,14 @@
 			
 			<tr id="delTr" style="display:none">
 			<td align="right">
-			비밀번호:
-			<input type="password" name=pwd size=10>
-			<input type="button" value="삭제">
-			</td>
-			</tr>
 			
-			<tr id="delTr" style="display:none">
-			<td align="right">
+ 			<form method=post action="delete.jsp" id="delfrm">
 			비밀번호:
-			<input type="password" name=pwd size=10>
-			<input type="button" value="수정">
+				<input type="password" name=pwd size=10 id="pwd">
+				<input type="hidden" name=no value="<%=strNo%>">
+				<input type="hidden" name=page value="<%=strPage%>">
+				<input type="button" value="삭제" id="delBtn1">
+			</form>
 			</td>
 			</tr>
 			
@@ -108,7 +218,7 @@
 	</center>
 </body>
 </html>
-
+ --%>
 
 
 

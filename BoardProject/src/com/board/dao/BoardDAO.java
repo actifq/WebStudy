@@ -121,7 +121,10 @@ public class BoardDAO {
         	String sql="INSERT INTO board(no,name,subject,content,pwd,group_id) "
         			  +"VALUES((SELECT NVL(MAX(no)+1,1) FROM board),"
         			  +"?,?,?,?,"
-        			  +"(SELECT NVL(MAX(group_id)+1,1) FROM board))";
+        			  +"(SELECT NVL(MAX(group_id)+"
+        			  + ""
+        			  + ""
+        			  + "1,1) FROM board))";
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, d.getName());
 			ps.setString(2, d.getSubject());
@@ -150,6 +153,97 @@ public class BoardDAO {
 		}
 	}
 	//  5) 답변 ==> INSERT
+	public void boardReply(int root,BoardDTO d){
+		
+		// => gi,gs,gt,root ==> gi,gs+1,gt+1, root
+		// =>  insert
+
+		/*										gi				gs				gt
+		 *  AAAAAA						2				0				0
+		 *  	=> BBBBBB				2				1				1
+		 *  	=> DDDDDD				2				1				1	
+		 *  		=> CCCCCC			2 				2				2
+		 * 	
+		 *
+		 *										gi				gs				gt
+		 *  AAAAAA						2				0				0
+		 *  	=> DDDDDD				2				1				1
+		 *  	=> BBBBBB				2				1				1
+		 *  		=> CCCCCC			2 				2				2
+		 *  UPDATE boart SET
+		 *  group_step=group_step+1
+		 *  WHERE group_id=1 AND group_step>0
+		 */
+		
+		// => root ==> depth 증가
+		
+		
+		
+		try{
+			getConnection();
+			
+			// JSP(예약), MVC(멀티미디어), Spring(ERP)
+			// ERP => 빅데이터
+
+			//group_tab (왼쪽에서 얼만큼 뗄껀지 결정함 
+			String sql="SELECT group_id,group_step,group_tab "
+					+ "FROM board "
+					+ "WHERE no=?";
+			
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, root);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			
+			int gi=rs.getInt(1);
+			int gs=rs.getInt(2);
+			int gt=rs.getInt(3);
+			rs.close();
+			ps.close();
+			
+			//답변형핵심 ! 답변끼리 꼬이지 않게 주는 쿼리 문장
+			sql="UPDATE board SET " 
+					+"group_step=group_step+1 "
+					+ "WHERE group_id=? "
+					+ "AND group_step>? ";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, gi);
+			ps.setInt(2, gs);
+			ps.executeUpdate();
+			ps.close();
+			
+			sql="UPDATE board SET "
+					+ "depth=depth+1 "
+					+ "WHERE no=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, root);
+			ps.executeUpdate();
+			ps.close();
+			
+			sql="INSERT INTO board(no,name,subject,content,pwd,group_id,group_step,group_tab,root) "
+       			  +"VALUES((SELECT NVL(MAX(no)+1,1) FROM board),"
+       			  +"?,?,?,?,"
+       			  +"?,?,?,?)";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, d.getName());
+			ps.setString(2, d.getSubject());
+			ps.setString(3, d.getContent());
+			ps.setString(4, d.getPwd());
+			ps.setInt(5, gi);
+			ps.setInt(6, gs+1);
+			ps.setInt(7, gt+1);
+			ps.setInt(8, root);
+
+			ps.executeUpdate();
+			
+		}catch(Exception ex){
+			
+		}finally{
+			disConnection();
+		}
+		
+	}
+	
 	//  6) 삭제 ==> DELETE
 	//  7) 찾기 ==> LIKE ~
 	
