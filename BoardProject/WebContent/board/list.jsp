@@ -64,9 +64,22 @@
 					}
 					
 				%>
+				<%
+				String msg="관리자가 삭제한 게시물 입니다.";
+				if(msg.equals(d.getSubject())){
+					%>
+					<font color=gray><%=d.getSubject() %></font>
+				<%
+				}else{
+					
+				
+				%>
 				<a href="content.jsp?no=<%=d.getNo()%>&page=<%=curpage%>">
 				 <%=d.getSubject() %> 
 				 </a>
+				 <%
+					 }
+				%>
 				 <%
 				String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 				String dbday=d.getRegdate().toString();

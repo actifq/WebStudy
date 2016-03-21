@@ -245,6 +245,79 @@ public class BoardDAO {
 	}
 	
 	//  6) 삭제 ==> DELETE
+	public boolean boardDelete(int no,String pwd){
+		boolean bCheck=false;
+		
+		try{
+			getConnection();
+			
+			//pwd 체크
+			
+			String sql="SELECT pwd FROM board "
+					+ "WHERE no=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			String db_pwd=rs.getString(1);
+			rs.close();
+			ps.close();
+			
+			if(db_pwd.equals(pwd)){
+				bCheck=true;
+				sql="SELECT root,depth FROM board "
+					+ "WHERE no=?";
+				ps=conn.prepareStatement(sql);
+				ps.setInt(1,no);
+				rs=ps.executeQuery();
+				rs.next();
+				int root=rs.getInt(1);
+				int depth=rs.getInt(2);
+				rs.close();
+				ps.close();
+				if(depth==0){
+					
+					//DELETE
+					sql="DELETE FROM board "
+						+ "WHERE no=?";
+					ps=conn.prepareStatement(sql);
+					ps.setInt(1, no);
+					ps.executeUpdate();
+					ps.close();
+				}else{
+					//UPDATE
+					sql="UPDATE board SET "
+						+ "subject=?,content=? "
+						+ "WHERE no=?";
+					String msg="관리자가 삭제한 게시물 입니다.";
+					ps=conn.prepareStatement(sql);
+					ps.setString(1, msg);
+					ps.setString(2, msg);
+					ps.setInt(3, no);
+					ps.executeUpdate();
+					ps.close();
+							
+					
+				}
+				//depth 감소
+				sql="UPDATE board SET "
+					+ "depth=depth-1 "
+					+ "WHERE no=?";
+				ps=conn.prepareStatement(sql);
+				ps.setInt(1, root);
+				ps.executeUpdate();
+			}else{
+				bCheck=false;
+			}
+			
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}finally{
+			disConnection();
+		}
+		
+		return bCheck;
+	}
 	//  7) 찾기 ==> LIKE ~
 	
 	
