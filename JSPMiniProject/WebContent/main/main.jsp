@@ -2,9 +2,7 @@
     pageEncoding="EUC-KR" import="com.jsp.change.*,com.member.dao.*"%>
     
     <%
- 	   	session.setAttribute("id","hong");
-		session.setAttribute("name","ȫ�浿");
-	   
+ 	   	  
     	MemberDAO dao=new MemberDAO();
     	dao.saveFile();
     
@@ -13,7 +11,6 @@
     			if(mode==null)
     				mode="0";
     	String jsp=jspChange.change(Integer.parseInt(mode));
-    	
     	String log_jsp="";
     	String id=(String)session.getAttribute("id");
     	if(id==null)

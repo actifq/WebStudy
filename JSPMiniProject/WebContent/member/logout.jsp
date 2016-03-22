@@ -9,6 +9,7 @@
 <body>
 
 <center>
+		<form method=post action="../member/logout_ok.jsp">
 		<table border=0 width=200>
 			<tr>
 				<td align="left"><%=session.getAttribute("name") %>´Ô</td>
@@ -22,10 +23,10 @@
 			
 			<tr>
 				<td align="right">
-					<input type=button value="·Î±×¾Æ¿ô">
+					<input type=submit value="·Î±×¾Æ¿ô">
 				</td>
 			</tr>
-			
+			</form>
 		</table>
 	</center>
 
