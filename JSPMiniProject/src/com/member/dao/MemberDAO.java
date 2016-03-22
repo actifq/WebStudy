@@ -4,6 +4,9 @@ package com.member.dao;
 import java.util.*;
 import java.sql.*;
 import javax.sql.*;
+
+import org.rosuda.REngine.Rserve.RConnection;
+
 import javax.naming.*;
 import java.io.*;
 
@@ -45,7 +48,7 @@ public class MemberDAO {
 						+rs.getInt(2)+"\n";
 			}
 			rs.close();
-			String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\JSPMiniProject\\image\\log.csv";
+			String path="C:/webDev/webStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPMiniProject/image/log.csv";
 			File file=new File(path);
 			if(!file.exists())
 				file.createNewFile();
@@ -111,7 +114,81 @@ public class MemberDAO {
 		return result;
 	}
 	
-}
+	//C:\webDev\webStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\JSPMiniProject\image
+	  public static void createLogImage()
+	   {
+		   try
+		   {
+			   RConnection rc=new RConnection();
+			   rc.voidEval("log<-read.csv(\"C:/webDev/webStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPMiniProject/image/log.csv\",header=T,sep=\",\")");
+			   rc.voidEval("png(\"C:/webDev/webStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPMiniProject/image/log.png\",width=500,height=400)");
+			   rc.voidEval("barplot(log$count,names.arg=log$name,col=rainbow(15))");
+			   rc.voidEval("dev.off()");
+			   rc.close();
+		   }catch(Exception ex)
+		   {
+			   System.out.println(ex.getMessage());
+		   }
+	   }
+	  	
+	  	public List<ZipcodeDTO> postfind(String dong){
+	  		List<ZipcodeDTO> list=new ArrayList<ZipcodeDTO>();
+	  		
+	  		try{
+	  			getConnection();
+	  			String sql="SELECT zipcode,sido,gugun,dong,NVL(bunji,' ') "
+	  							+ "FROM zipcode "
+	  							+ "WHERE dong LIKE '%'||?||'%'";
+	  			ps=conn.prepareStatement(sql);
+	  			ps.setString(1, dong);
+	  			ResultSet rs=ps.executeQuery();
+	  			while(rs.next()){
+	  				ZipcodeDTO d=new ZipcodeDTO();
+	  				d.setZipcode(rs.getString(1));
+	  				d.setSido(rs.getString(2));
+	  				d.setGugun(rs.getString(3));
+	  				d.setDong(rs.getString(4));
+	  				d.setBunji(rs.getString(5));
+	  				list.add(d);
+	  				
+	  				
+	  			}
+	  			rs.close();
+	  			
+	  		}catch(Exception ex){
+	  			System.out.println(ex.getMessage());
+	  		}finally {
+				disConnection();
+			}
+	  		
+	  		return list;
+	  	}
+
+	  	public int idcheck(String id){
+	  		int count=0;
+	  		try{
+	  			getConnection();
+	  			String sql="SELECT COUNT(*) FROM member "
+	  							+ "WHERE id=?";
+	  			ps.getConnection().prepareStatement(sql);
+	  			ps.setString(1, id);
+	  			ResultSet rs=ps.executeQuery();
+	  			rs.next();
+	  			count=rs.getInt(1);
+	  			rs.close();
+	  		}catch(Exception ex){
+	  			System.out.println(ex.getMessage());
+	  		}finally {
+				disConnection();
+			}
+	  		return count;
+	  	}
+	  	
+	  	
+	}
+	
+	
+
 
 
 
