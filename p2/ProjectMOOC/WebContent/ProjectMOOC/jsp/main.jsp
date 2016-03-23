@@ -60,11 +60,32 @@
 		<section id="banner">
 			<div class="content">
 				<header>
-					<h2>The future has landed</h2>
+					<!-- <h2>The future has landed</h2>
 					<p>
 						And there are no hoverboards or flying cars.<br /> Just apps.
 						Lots of mother flipping apps.
 					</p>
+					
+					<h2>Share your Knowldelge</h2>
+					 -->
+					 	<div class="4u 12u$(medium)">
+							<header>
+								<h2>Odio faucibus ipsum integer consequat</h2>
+								<p>Nascetur eu nibh vestibulum amet gravida nascetur
+									praesent</p>
+							</header>
+						</div>
+						
+						<div class="4u 12u$(medium)">
+							<p>Feugiat accumsan lorem eu ac lorem amet sed accumsan
+								donec. Blandit orci porttitor semper. Arcu phasellus tortor enim
+								mi nisi praesent dolor adipiscing. Integer mi sed nascetur cep
+								aliquet augue varius tempus lobortis porttitor accumsan
+								consequat adipiscing lorem dolor.
+								</p>
+				</div>								
+
+
 				</header>
 				
 				

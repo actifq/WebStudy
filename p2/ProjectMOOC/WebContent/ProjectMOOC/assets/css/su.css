@@ -1,0 +1,30 @@
+@import url("font-awesome.min.css");
+@import url("http://fonts.googleapis.com/css?family=Roboto:100,300,100italic,300italic");
+
+#name{
+	color:yellow;
+	font-family: ¸¼Àº °íµñ;
+	font-size: 10pt;
+}
+
+div{
+	font-family: ¸¼Àº °íµñ;
+	font-size: 9pt;	
+}
+
+.row{
+	text-align: center;
+	color: red;
+}
+
+.form-control ng-pristine ng-untouched ng-valid{
+	color: red;
+}
+
+col-sm-6 col-xs-12.div{
+	color : red;
+}
+
+h1{
+	color : red;
+}
