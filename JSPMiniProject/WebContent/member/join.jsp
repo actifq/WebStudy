@@ -1,25 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
- <meta charset="EUC-KR">
+<meta charset="EUC-KR">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="../css/table.css">
+<link rel="stylesheet" type="text/css" href="table.css">
 <script type="text/javascript">
-function postfind(){
-	window.open("../member/postfind.jsp","postfind","width=430,height=350,menubar=no,toolbar=no,scrollbars=yes")
+function postfind()
+{
+	window.open("../member/postfind.jsp","postfind",
+			"width=430,height=350,menubar=no,toolbar=no,scrollbars=yes");
 }
-function idcheck(){
-	window.open("../member/idcheck.jsp","idcheck","width=350,height=150,menubar=no,toolbar=no,scrollbars=no")
+function idcheck()
+{
+	window.open("../member/idcheck.jsp","idcheck",
+			"width=350,height=150,menubar=no,toolbar=no,scrollbars=no");
 }
-
 </script>
 </head>
 <body>
   <center>
     <h3>회원 가입</h3>
-    <form name="join frm">
+    <form name="join_frm" action="../member/join_ok.jsp" method="post">
     <table border=1 bordercolor="black" width=500
        cellpadding="0" cellspacing="0">
       <tr>
@@ -75,7 +78,7 @@ function idcheck(){
              <td width=15% align=right>우편번호</td>
              <td width=85% align=left>
               <input type=text name=post1 readonly size=5>-
-              <input type=text name=post1 readonly size=5>
+              <input type=text name=post2 readonly size=5>
               <input type="button" value="우편번호검색" onclick="postfind()">
              </td>
            </tr>

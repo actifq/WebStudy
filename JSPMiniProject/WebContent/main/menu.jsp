@@ -40,7 +40,8 @@
      </tr>
      <tr height=30>
       <td align=center>
-       <img src="../image/board.gif">
+      <a href="main.jsp?mode=3">
+       <img src="../image/board.gif" border=0></a>
       </td>
      </tr>
      <tr height=30>

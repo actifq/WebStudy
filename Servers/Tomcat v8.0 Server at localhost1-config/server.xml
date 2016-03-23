@@ -126,24 +126,11 @@
 
       <Context docBase="JSPProject" path="/JSPProject" reloadable="true" source="org.eclipse.jst.jee.server:JSPProject"/>
       <Context docBase="JSPProject1" path="/JSPProject1" reloadable="true" source="org.eclipse.jst.jee.server:JSPProject1"/><Context docBase="BoardProject" path="/BoardProject" reloadable="true" source="org.eclipse.jst.jee.server:BoardProject"/><Context docBase="JSPProject3" path="/JSPProject3" reloadable="true" source="org.eclipse.jst.jee.server:JSPProject3"/><Context docBase="JSPincludProject" path="/JSPincludProject" reloadable="true" source="org.eclipse.jst.jee.server:JSPincludProject"/><Context docBase="JSPMiniProject" path="/JSPMiniProject" reloadable="true" source="org.eclipse.jst.jee.server:JSPMiniProject">
-      	<Resource name="jdbc/oracle" auth="Container" type="javax.sql.DataSource" driverClassName="oracle.jdbc.driver.OracleDriver" 
-      	url="jdbc:oracle:thin:@211.238.142.81:1521:ORCL"
-      	username="scott"
-      	password="tiger"
-      	maxActive="10"
-      	maxIdle="10"
-      	maxWait="-1"
-      	      	
-      	>
+      	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="10" maxIdle="10" maxWait="-1" name="jdbc/oracle" password="tiger" type="javax.sql.DataSource" url="jdbc:oracle:thin:@211.238.142.81:1521:ORCL" username="scott">
       	
       	</Resource>
       </Context>
-      </Host>
+      <Context docBase="JSPBeanProject" path="/JSPBeanProject" reloadable="true" source="org.eclipse.jst.jee.server:JSPBeanProject"/></Host>
     </Engine>
   </Service>
 </Server>
-
-
-
-
-

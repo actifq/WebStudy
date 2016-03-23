@@ -184,6 +184,32 @@ public class MemberDAO {
 	  		return count;
 	  	}
 	  	
+	  	public void memberJoin(MemberDTO d){
+	  		try{
+	  			getConnection();
+	  			String sql="INSERT INTO member VALUES("
+	  							+ "?,?,?,?,?,?,?,?,?,0,SYSDATE)";
+	  			ps=conn.prepareStatement(sql);
+	  			ps.setString(1, d.getId());
+	  			ps.setString(2, d.getPwd());
+	  			ps.setString(3, d.getName());
+	  			ps.setString(4, d.getSex());
+	  			ps.setString(5, d.getBirth());
+	  			ps.setString(6, d.getTel());
+	  			ps.setString(7, d.getPost());
+	  			ps.setString(8, d.getAddr1());
+	  			ps.setString(9, d.getAddr2());
+	  			ps.executeUpdate();
+	  			
+	  			
+	  		}catch(Exception ex){
+	  			System.out.println(ex.getMessage());
+	  		}finally{
+	  			disConnection();
+	  		}
+	  		
+	  	}
+	  	
 	  	
 	}
 	

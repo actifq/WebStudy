@@ -39,13 +39,13 @@ function postfind()
 		 return;
 	 }
 	 f.submit();
-	 
-	 function  ok(zip,addr){
-		 opener.join_frm.post1.value=zip.substring(0,3);
-		 opener.join_frm.post2.value=zip.substring(4,7);
-		 opener.join_frm.post1.value=addr;
-		 self.close();
-	 }
+}
+function ok(zip,addr)
+{
+	opener.join_frm.post1.value=zip.substring(0,3);
+	opener.join_frm.post2.value=zip.substring(4,7);
+	opener.join_frm.addr1.value=addr;
+	self.close();
 }
 </script>
 </head>
@@ -82,7 +82,7 @@ function postfind()
              <tr>
               <td width=30% align=center><%=zip %></td>
               <td width=70% align=left>
-              <a href="javascript:ok(''<%=zip%>'')"><%=addr %></a>
+              <a href="javascript:ok('<%=zip%>','<%=addr%>')"><%=addr %></a>
               </td>
              </tr>
      <%
@@ -107,19 +107,6 @@ function postfind()
   </center>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
