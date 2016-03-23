@@ -12,19 +12,6 @@ div{
 	font-size: 9pt;	
 }
 
-.row{
-	text-align: center;
-	color: red;
-}
-
-.form-control ng-pristine ng-untouched ng-valid{
-	color: red;
-}
-
-col-sm-6 col-xs-12.div{
-	color : red;
-}
-
-h1{
-	color : red;
+.sumain{
+ color: red;
 }

@@ -7,7 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Programming MOOC</title>
 
-<link rel="stylesheet" type="text/css" href="assets/css/main.css"> 
+
+<link rel="stylesheet" type="text/css" href="../assets/css/main.css"> 
 
 </head>
 <body class="landing">
@@ -51,7 +52,7 @@
 								</ul></li>
 						</ul></li>
 					<!-- <li><a href="elements.html">Elements</a></li> -->
-					<li><a href="#" class="button special">Sign Up</a></li>
+					<li><a href="member/signup.jsp" class="button special">Sign Up</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -224,7 +225,7 @@
 				</div>
 				<footer class="major">
 					<ul class="actions">
-						<li><a href="#" class="button">Magna sed feugiat</a></li>
+						<li><a href="#" class="button">Start Study !</a></li>
 					</ul>
 				</footer>
 			</div>
@@ -269,8 +270,8 @@
 						class="label">Email</span></a></li>
 			</ul>
 			<ul class="copyright">
-				<li>&copy; Untitled. All rights reserved.</li>
-				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				<li>&copy;Copyright by SIST-C2.</li>
+				
 			</ul>
 		</footer>
 
