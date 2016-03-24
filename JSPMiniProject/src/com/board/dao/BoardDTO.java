@@ -1,19 +1,16 @@
 package com.board.dao;
-
 import java.util.*;
-
 public class BoardDTO {
 	private int no;
-	   private String name;
-	   private String subject;
-	   private String content;
-	   private String pwd;
-	   private Date regdate;
-	   private int hit;
-	   private String filename;
-	   private int filesize;
-	   
-	   public int getNo() {
+	private String name;
+	private String subject;
+	private String content;
+	private String pwd;
+	private Date regdate;
+	private int hit;
+	private String filename;
+	private int filesize;
+	public int getNo() {
 		return no;
 	}
 	public void setNo(int no) {
@@ -67,5 +64,4 @@ public class BoardDTO {
 	public void setFilesize(int filesize) {
 		this.filesize = filesize;
 	}
-	
 }

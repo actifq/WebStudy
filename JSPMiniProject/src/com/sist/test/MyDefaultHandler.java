@@ -3,91 +3,45 @@ package com.sist.test;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
 /*
- * XML íŒŒì‹±í•´ì˜¤ëŠ” ë°©ë²• 2ê°€ì§€ ==> DOM , SAX
- * 		
- * 		SAX ==> Simple API for XML
- *         í•œì¤„ì”© ì½ì–´ì„œ ë°ì´í„°ë¥¼ ê°€ì§€ê³  ì˜¨ë‹¤ ==> í•œì¤„ì”© ì½ì„ë•Œë§ˆë‹¤ ë©”ì†Œë“œë¥¼ ì´ìš©
- *         
- *         <?xml version="1.0"> startDocument()
- *         <root> startElement()
- *         	<a>aaa</a>
- *         	startElement() characters endElement()
- *         	<b>bbb</b>
- *         </root>
- * 
+ *   XML ==> DOM , SAX
+ *     SAX => Simple API for XML
+ *     ÇÑÁÙ¾¿ ÀĞ¾î¼­ µ¥ÀÌÅÍ¸¦ °¡Áö°í ¿Â´Ù ==> ¸Ş¼Òµå
+ *     <?xml version="1.0"> start Document()
+ *     <root>  startElement()
+ *       <a>aaa</a>
+ *       startElement() <= ÅÂ±×°¡ ¿­·È´Ù.
+ *       startElement() characters endElement()
+ *       <b>bbb</b>
+ *       startElement() characters endElement()
+ *     </root>  endElement()
+ *     endDocument
  */
 import java.util.*;
 public class MyDefaultHandler extends DefaultHandler{
-	
 	Map map=new HashMap();
-	
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		
-		try{
-			if(qName.equals("Resource")){
+		try
+		{
+			if(qName.equals("Resource"))
+			{
 				String driverName=attributes.getValue("driverName");
 				String url=attributes.getValue("url");
 				String username=attributes.getValue("username");
 				String password=attributes.getValue("password");
 				String type=attributes.getValue("type");
 				String name=attributes.getValue("name");
-			
-				//type ë©”ëª¨ë¦¬í• ë‹¹
 				Class clsName=Class.forName(type);
-				
 				MyDataSource ds=(MyDataSource)clsName.newInstance();
 				ds.setDriverClassName(driverName);
-				ds.setDriverClassName(url);
-				ds.setDriverClassName(username);
-				ds.setDriverClassName(password);
-				ds.setDriverClassName(type);
-				ds.setDriverClassName(name);
-				
+				ds.setUrl(url);
+				ds.setUsername(username);
+				ds.setPassword(password);
 				map.put(name, ds);
-				
 			}
-		}catch(Exception ex){
-			System.out.println(ex.getMessage());
-		}
-		
+		}catch(Exception ex){}
 	}
+	
 
-		
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -3,10 +3,7 @@ package com.sist.test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-
-
 public class MyDataSource {
-
 	private String driverClassName;
 	private String url;
 	private String username;
@@ -14,7 +11,6 @@ public class MyDataSource {
 	private int maxActive;
 	private int maxIdle;
 	private int maxWait;
-	
 	public String getDriverClassName() {
 		return driverClassName;
 	}
@@ -58,53 +54,20 @@ public class MyDataSource {
 		this.maxWait = maxWait;
 	}
 	
-	public void driverLoading(){
-		try{
+	public void driverLoading()
+	{
+		try
+		{
 			Class.forName(driverClassName);
-		}catch(Exception ex){
-			System.out.println(ex.getMessage());
-		}
+		}catch(Exception ex){}
 	}
-	
-	public Connection getConnection(){
+	public Connection getConnection()
+	{
 		Connection conn=null;
-		try{
+		try
+		{
 			conn=DriverManager.getConnection(url,username,password);
-		}catch(Exception ex){
-			System.out.println(ex.getMessage());
-		}
+		}catch(Exception ex){}
 		return conn;
 	}
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

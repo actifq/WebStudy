@@ -5,22 +5,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
-
 <script type="text/javascript">
-
-function mail(){
-	location.href="main.jsp";
+function main()
+{
+	location.href="main.jsp";	
 }
-window.onload=function(){
-		setTimeout(mail,3000);		
-	}
+window.onload=function()
+{
+	setTimeout(main, 3000);	
+}
 </script>
 </head>
 <body>
-
-<center>
-	<img src="../image/loginok.png"	width=500 height=400>
-</center>
-
+  <center>
+    <img src="../image/loginok.PNG" width=500 height=300>
+  </center>
 </body>
 </html>

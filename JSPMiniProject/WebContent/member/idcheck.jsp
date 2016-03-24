@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR" import="com.member.dao.*"%>
 <%
-    String id=request.getParameter("id");
-    if(id==null)
-    	id="";
-    MemberDAO dao=new MemberDAO();
-    int count=dao.idcheck(id);
+	String id=request.getParameter("id");
+	if(id==null)
+		id="";
+	MemberDAO dao=new MemberDAO();
+	int count=dao.idcheck(id);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -21,55 +21,51 @@ function ok()
 </script>
 </head>
 <body>
-   <center>
+  <center>
     <table border=0 width=300>
-     <tr>
+      <tr>
       <td>
       <form method=post action="idcheck.jsp" name=frm>
-       ID:<input type=text name=id size=12 value=<%=id==null?"":id %>>
-       <input type=submit value="중복체크">
-       </form>
+      ID:<input type=text name=id size=12 value=<%=id==null?"":id %>>
+      <input type=submit value="중복체크">
+      </form>
       </td>
-     </tr>
-     <tr>
+      </tr>
+      <tr>
       <td>
-       <%
+        <%
+            if(count==0)
+            {
+        %>
+        	<font color=blue>
+        	<%=id %>는(은) 사용 가능한 ID입니다.
+        	</font>
+        <%
+            }
+            else
+            {
+        %>
+        	<font color=red>
+        	<%=id %>는(은) 이미 사용중인 ID입니다.
+        	</font>
+        <%  	
+            }
+        %>
+      </td>
+      </tr>
+      <%
           if(count==0)
           {
-       %>
-            <font color=red>
-            <%=id %>는(은) 사용 가능합니다
-            </font>
-       <%
-          }
-          else
-          {
-       %>
-            <font color=blue>
-            <%=id %>는(은) 이미 사용중입니다
-            </font>
-       <% 
-          }
-       %>
-      </td>
-     </tr>
-     <%
-        if(count==0)
-        {
-     %>
-     <tr>
+      %>
+      <tr>
       <td align=center>
-       <input type=button value="확인" onclick="ok()">
+      <input type=button value="확인" onclick="ok()">
       </td>
-     </tr>
-     <%
-        }
-     %>
+      </tr>
+      <%
+          }
+      %>
     </table>
-   </center>
+  </center>
 </body>
 </html>
-
-
-
-

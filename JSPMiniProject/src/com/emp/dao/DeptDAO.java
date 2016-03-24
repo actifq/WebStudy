@@ -1,97 +1,66 @@
 package com.emp.dao;
 import java.sql.*;
 import java.util.*;
-import javax.sql.*;// DataSource (DataBaseì˜ ëª¨ë“  ì •ë³´)
-import javax.naming.*;// Context
+import javax.sql.*; // DataSource (DataBaseÀÇ ¸ğµç Á¤º¸)
+import javax.naming.*; // Context
 public class DeptDAO {
-   private Connection conn;
-   private PreparedStatement ps;
-   // ì´ë¯¸ ìƒì„±ëœ ì»¬ë ‰ì…˜ì˜ ì£¼ì†Œê°’ì„ ì–»ì–´ì˜¨ë‹¤ 
-   public void getConnection()
-   {
-	   try
-	   {
-		   // íƒìƒ‰ê¸°ë¥¼ ì—°ë‹¤ 
-		   Context init=new InitialContext();
-		   // JNDIì˜ ì´ˆê¸°í™” 
-		   // Cë“œë¼ì´ë²„ì— ì ‘ê·¼
-		   Context c=(Context)init.lookup("java:/comp/env");
-		   // ì´ë¦„ => Connectionì„ ì–»ì–´ ì˜¨ë‹¤ 
-		   DataSource ds=(DataSource)c.lookup("jdbc/oracle");
-		   // connì— ì €ì¥ (ì£¼ì†Œ)
-		   conn=ds.getConnection();
-	   }catch(Exception ex)
-	   {
-		   System.out.println(ex.getMessage());
-	   }
-   }
-   // ë°˜í™˜ 
-   public void disConnection()
-   {
-	  try
-	  {
-		  if(ps!=null) ps.close();
-		  if(conn!=null) conn.close();
-	  }catch(Exception ex){}
-   }
-   // ëª©ë¡
-   public List<DeptDTO> deptAllData()
-   {
-	   List<DeptDTO> list=new ArrayList<DeptDTO>();
-	   try
-	   {
-		   getConnection();
-		   String sql="SELECT * FROM dept";
-		   ps=conn.prepareStatement(sql);
-		   ResultSet rs=ps.executeQuery();
-		   while(rs.next())
-		   {
-			   DeptDTO d=new DeptDTO();
-			   d.setDeptno(rs.getInt(1));
-			   d.setDname(rs.getString(2));
-			   d.setLoc(rs.getString(3));
-			   list.add(d);
-		   }
-		   rs.close();
-	   }catch(Exception ex)
-	   {
-		   System.out.println(ex.getMessage());
-	   }
-	   finally
-	   {
-		   disConnection();
-	   }
-	   return list;
-   }
+	private Connection conn;
+	private PreparedStatement ps;
+	// ÀÌ¹Ì »ı¼ºµÈ ÄÃ·º¼ÇÀÇ ÁÖ¼Ò°ªÀ» ¾ò¾î¿Â´Ù
+	public void getConnection()
+	{
+		try
+		{
+			// Å½»ö±â¸¦ ¿¬´Ù
+			Context init=new InitialContext(); //JNDIÀÇ ÃÊ±âÈ­
+			// Cµå¶óÀÌ¹ö¿¡ Á¢±Ù
+			Context c=(Context)init.lookup("java:/comp/env");
+			// ÀÌ¸§ => ConnectionÀ» ¾ò¾î ¿Â´Ù
+			DataSource ds=(DataSource)c.lookup("jdbc/oracle");
+			// conn¿¡ ÀúÀå (ÁÖ¼Ò°ª)
+			conn=ds.getConnection();
+		}catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+	}
+	// ¹İÈ¯
+	public void disConnection()
+	{
+		try
+		{
+			if(ps!=null) ps.close();
+			if(conn!=null) conn.close();
+		}
+		catch(Exception ex){}
+	}
+	// ¸ñ·Ï
+	public List<DeptDTO> deptAllData()
+	{
+		List<DeptDTO> list=new ArrayList<DeptDTO>();
+		try
+		{
+			getConnection();
+			String sql="SELECT * FROM dept";
+			ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				DeptDTO d=new DeptDTO();
+				d.setDeptno(rs.getInt(1));
+				d.setDname(rs.getString(2));
+				d.setLoc(rs.getString(3));
+				list.add(d);
+			}
+			rs.close();
+		}catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+		finally
+		{
+			disConnection();
+		}
+		return list;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

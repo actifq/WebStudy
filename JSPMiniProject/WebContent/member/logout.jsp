@@ -7,28 +7,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<center>
-		<form method=post action="../member/logout_ok.jsp">
-		<table border=0 width=200>
-			<tr>
-				<td align="left"><%=session.getAttribute("name") %>님</td>
-				
-			</tr>
-			
-			<tr>
-				<td align="left">로그인 중입니다...</td>
-			
-			</tr>
-			
-			<tr>
-				<td align="right">
-					<input type=submit value="로그아웃">
-				</td>
-			</tr>
-			</form>
-		</table>
-	</center>
-
+  <center>
+  <form method=post action="../member/logout_ok.jsp">
+    <table border=0 width=200>
+      <tr>
+        <td align="left"><%=session.getAttribute("name") %>님</td>
+      </tr>
+      <tr>
+        <td align="left">로그인 중입니다...</td>
+      </tr>
+      <tr>
+        <td align="right">
+          <input type=submit value="로그아웃">
+        </td>
+      </tr>
+    </table>
+    </form>
+  </center>
 </body>
 </html>

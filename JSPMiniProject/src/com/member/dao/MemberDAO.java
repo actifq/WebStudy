@@ -1,51 +1,53 @@
 package com.member.dao;
-//C:\webDev\webStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\JSPMiniProject\image
-
+// C:\webDev\webStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\JSPMiniProject\image
 import java.util.*;
 import java.sql.*;
 import javax.sql.*;
 
 import org.rosuda.REngine.Rserve.RConnection;
 
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import javax.naming.*;
 import java.io.*;
-
 public class MemberDAO {
 	private Connection conn;
 	private PreparedStatement ps;
-	
-	public void getConnection(){
-		try{
+	public void getConnection()
+	{
+		try
+		{
 			Context init=new InitialContext();
 			Context c=(Context)init.lookup("java://comp/env");
 			DataSource ds=(DataSource)c.lookup("jdbc/oracle");
-			
 			conn=ds.getConnection();
-		}catch(Exception ex){
+		}catch(Exception ex)
+		{
 			System.out.println(ex.getMessage());
 		}
 	}
-	
-	public void disConnection(){
-		try{
+	public void disConnection()
+	{
+		try
+		{
 			if(ps!=null) ps.close();
-			if(conn!=null)ps.close();
-		}catch(Exception ex){
-			System.out.println(ex.getMessage());
-		}
+			if(conn!=null) conn.close();
+		}catch(Exception ex){}
 	}
-	
-	public void saveFile(){
-		try{
+	public void saveFile()
+	{
+		try
+		{
 			getConnection();
 			String sql="SELECT name,logcount "
-							+ "FROM member";
+					  +"FROM member";
 			String data="name,count\n";
 			ps=conn.prepareStatement(sql);
 			ResultSet rs=ps.executeQuery();
-			while(rs.next()){
-				data+=rs.getString(1)+"," 
-						+rs.getInt(2)+"\n";
+			while(rs.next())
+			{
+				data+=rs.getString(1)+","
+					 +rs.getInt(2)+"\n";
 			}
 			rs.close();
 			String path="C:/webDev/webStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPMiniProject/image/log.csv";
@@ -56,21 +58,23 @@ public class MemberDAO {
 			FileWriter fw=new FileWriter(file);
 			fw.write(data);
 			fw.close();
-		}catch(Exception ex){
+		}catch(Exception ex)
+		{
 			System.out.println(ex.getMessage());
-		}finally {
+		}
+		finally
+		{
 			disConnection();
 		}
 	}
-	
-	public String isLogin(String id,String pwd){
+	public String isLogin(String id,String pwd)
+	{
 		String result="";
-	
-		try{
+		try
+		{
 			getConnection();
-			
 			String sql="SELECT COUNT(*) FROM member "
-					+ "WHERE id=?";
+					  +"WHERE id=?";
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, id);
 			ResultSet rs=ps.executeQuery();
@@ -78,12 +82,14 @@ public class MemberDAO {
 			int count=rs.getInt(1);
 			rs.close();
 			ps.close();
-			if(count==0){
+			if(count==0)
+			{
 				result="NOID";
 			}
-			else{
+			else
+			{
 				sql="SELECT pwd,name FROM member "
-						+ "WHERE id=?";
+				   +"WHERE id=?";
 				ps=conn.prepareStatement(sql);
 				ps.setString(1, id);
 				rs=ps.executeQuery();
@@ -92,162 +98,132 @@ public class MemberDAO {
 				String db_name=rs.getString(2);
 				rs.close();
 				ps.close();
-				
-				if(db_pwd.equals(pwd)){
+				if(db_pwd.equals(pwd))
+				{
 					result=db_name;
 					sql="UPDATE member SET "
-							+ "logcount=logcount+1 "
-							+ "WHERE id=?";
+					   +"logcount=logcount+1 "
+					   +"WHERE id=?";
 					ps=conn.prepareStatement(sql);
 					ps.setString(1, id);
 					ps.executeUpdate();
-				}else{
+				}
+				else
+				{
 					result="NOPWD";
 				}
 			}
-		}catch(Exception ex){
+		}catch(Exception ex)
+		{
 			System.out.println(ex.getMessage());
-		}finally{
+		}
+		finally
+		{
 			disConnection();
 		}
-		
 		return result;
 	}
-	
-	//C:\webDev\webStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\JSPMiniProject\image
-	  public static void createLogImage()
-	   {
-		   try
-		   {
-			   RConnection rc=new RConnection();
-			   rc.voidEval("log<-read.csv(\"C:/webDev/webStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPMiniProject/image/log.csv\",header=T,sep=\",\")");
-			   rc.voidEval("png(\"C:/webDev/webStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPMiniProject/image/log.png\",width=500,height=400)");
-			   rc.voidEval("barplot(log$count,names.arg=log$name,col=rainbow(15))");
-			   rc.voidEval("dev.off()");
-			   rc.close();
-		   }catch(Exception ex)
-		   {
-			   System.out.println(ex.getMessage());
-		   }
-	   }
-	  	
-	  	public List<ZipcodeDTO> postfind(String dong){
-	  		List<ZipcodeDTO> list=new ArrayList<ZipcodeDTO>();
-	  		
-	  		try{
-	  			getConnection();
-	  			String sql="SELECT zipcode,sido,gugun,dong,NVL(bunji,' ') "
-	  							+ "FROM zipcode "
-	  							+ "WHERE dong LIKE '%'||?||'%'";
-	  			ps=conn.prepareStatement(sql);
-	  			ps.setString(1, dong);
-	  			ResultSet rs=ps.executeQuery();
-	  			while(rs.next()){
-	  				ZipcodeDTO d=new ZipcodeDTO();
-	  				d.setZipcode(rs.getString(1));
-	  				d.setSido(rs.getString(2));
-	  				d.setGugun(rs.getString(3));
-	  				d.setDong(rs.getString(4));
-	  				d.setBunji(rs.getString(5));
-	  				list.add(d);
-	  				
-	  				
-	  			}
-	  			rs.close();
-	  			
-	  		}catch(Exception ex){
-	  			System.out.println(ex.getMessage());
-	  		}finally {
-				disConnection();
+	public static void createLogImage()
+	{
+		try
+		{
+			RConnection rc=new RConnection(); //()=> 빈괄호: localhost
+			//("ip주소") 다른사람거에 접속
+			rc.voidEval("log<-read.csv(\"C:/webDev/webStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPMiniProject/image/log.csv\",header=T,sep=\",\")"); 
+			//voidEval:R에 값 보낼때 사용
+			rc.voidEval("png(\"C:/webDev/webStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/JSPMiniProject/image/log.png\",width=500,height=400)");
+			rc.voidEval("barplot(log$count,names.arg=log$name,col=rainbow(15))");
+			rc.voidEval("dev.off()");
+			rc.close();
+		}catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+		
+	}
+	public List<ZipcodeDTO> postfind(String dong)
+	{
+		List<ZipcodeDTO> list=new ArrayList<ZipcodeDTO>();
+		try
+		{
+			getConnection();
+			String sql="SELECT zipcode,sido,gugun,dong,NVL(bunji,' ') "
+					  +"FROM zipcode "
+					  +"WHERE dong LIKE '%'||?||'%'";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, dong);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				ZipcodeDTO d=new ZipcodeDTO();
+				d.setZipcode(rs.getString(1));
+				d.setSido(rs.getString(2));
+				d.setGugun(rs.getString(3));
+				d.setDong(rs.getString(4));
+				d.setBunji(rs.getString(5));
+				list.add(d);
 			}
-	  		
-	  		return list;
-	  	}
-
-	  	public int idcheck(String id){
-	  		int count=0;
-	  		try{
-	  			getConnection();
-	  			String sql="SELECT COUNT(*) FROM member "
-	  							+ "WHERE id=?";
-	  			ps.getConnection().prepareStatement(sql);
-	  			ps.setString(1, id);
-	  			ResultSet rs=ps.executeQuery();
-	  			rs.next();
-	  			count=rs.getInt(1);
-	  			rs.close();
-	  		}catch(Exception ex){
-	  			System.out.println(ex.getMessage());
-	  		}finally {
-				disConnection();
-			}
-	  		return count;
-	  	}
-	  	
-	  	public void memberJoin(MemberDTO d){
-	  		try{
-	  			getConnection();
-	  			String sql="INSERT INTO member VALUES("
-	  							+ "?,?,?,?,?,?,?,?,?,0,SYSDATE)";
-	  			ps=conn.prepareStatement(sql);
-	  			ps.setString(1, d.getId());
-	  			ps.setString(2, d.getPwd());
-	  			ps.setString(3, d.getName());
-	  			ps.setString(4, d.getSex());
-	  			ps.setString(5, d.getBirth());
-	  			ps.setString(6, d.getTel());
-	  			ps.setString(7, d.getPost());
-	  			ps.setString(8, d.getAddr1());
-	  			ps.setString(9, d.getAddr2());
-	  			ps.executeUpdate();
-	  			
-	  			
-	  		}catch(Exception ex){
-	  			System.out.println(ex.getMessage());
-	  		}finally{
-	  			disConnection();
-	  		}
-	  		
-	  	}
-	  	
-	  	
+			rs.close();
+		}catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+		finally
+		{
+			disConnection();
+		}
+		return list;
+	}
+	public int idcheck(String id)
+	{
+		int count=0;
+		try
+		{
+			getConnection();
+			String sql="SELECT COUNT(*) FROM member "
+					  +"WHERE id=?";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			count=rs.getInt(1);
+			rs.close();
+		}catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+		finally
+		{
+			disConnection();
+		}
+		return count;
+	}
+	public void memberJoin(MemberDTO d)
+	{
+		try
+		{
+			getConnection();
+			String sql="INSERT INTO member VALUES("
+					  +"?,?,?,?,?,?,?,?,?,0,SYSDATE)";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, d.getId());
+			ps.setString(2, d.getPwd());
+			ps.setString(3, d.getName());
+			ps.setString(4, d.getSex());
+			ps.setString(5, d.getBirth());
+			ps.setString(6, d.getTel());
+			ps.setString(7, d.getPost());
+			ps.setString(8, d.getAddr1());
+			ps.setString(9, d.getAddr2());
+			ps.executeUpdate();
+		}catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+		finally
+		{
+			disConnection();
+		}
 	}
 	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

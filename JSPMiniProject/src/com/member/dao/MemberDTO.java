@@ -1,7 +1,20 @@
 package com.member.dao;
 
-import java.util.*;
+import java.util.Date;
 
+/*
+ *  ID
+ PWD
+ NAME
+ SEX
+ BIRTH
+ TEL
+ POST
+ ADDR1
+ ADDR2
+ LOGCOUNT
+ REGDATE
+ */
 public class MemberDTO {
 	private String id;
 	private String pwd;
@@ -12,14 +25,13 @@ public class MemberDTO {
 	private String post;
 	private String addr1;
 	private String addr2;
+	private int logcount;
 	private Date regdate;
 	private String tel1;
 	private String tel2;
 	private String tel3;
 	private String post1;
 	private String post2;
-	
-	
 	public String getId() {
 		return id;
 	}
@@ -62,17 +74,17 @@ public class MemberDTO {
 	public void setAddr2(String addr2) {
 		this.addr2 = addr2;
 	}
-	public Date getRegdate() {
-		return regdate;
-	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
-	}
 	public int getLogcount() {
 		return logcount;
 	}
 	public void setLogcount(int logcount) {
 		this.logcount = logcount;
+	}
+	public Date getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
 	public String getTel1() {
 		return tel1;
@@ -110,7 +122,6 @@ public class MemberDTO {
 	public String getPost() {
 		return post1+"-"+post2;
 	}
-	private int logcount;
 	
-
+	
 }
