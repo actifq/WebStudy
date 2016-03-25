@@ -74,6 +74,8 @@ $(function(){
             <td width=15% align="right">¿Ã∏ß</td>
             <td width=85% align="left">
              <input type="text" name=name size=12 id="name" value="<%=d.getName()%>">
+             <input type=hidden name="no" value="<%=no%>">
+             <input type=hidden name="page" value="<%=strPage%>">
             </td>
            </tr>
            <tr>

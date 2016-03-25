@@ -56,7 +56,8 @@
   	  </tr>
   	  <tr height=30>
   	    <td align=center>
-  	      <img src="../image/movie.gif">
+  	    <a href="main.jsp?mode=7">
+  	      <img src="../image/movie.gif" border=0></a>
   	      </td>
   	      <%
   	  	}
