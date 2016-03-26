@@ -123,6 +123,7 @@
              Documentation at: /docs/config/valve.html
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
+
 	  
       <Context docBase="JSPMiniProject" path="/JSPMiniProject" reloadable="true" source="org.eclipse.jst.jee.server:JSPMiniProject">
         <Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="10" maxIdle="10" maxWait="-1" name="jdbc/oracle" password="tiger" type="javax.sql.DataSource" url="jdbc:oracle:thin:@211.238.142.81:1521:ORCL" username="scott"/>
@@ -280,3 +281,10 @@ Note:  A "Server" is not itself a "Container", so you may not
     </Engine>
   </Service>
 </Server> -->
+
+
+      <Context docBase="BoardProject" path="/BoardProject" reloadable="true" source="org.eclipse.jst.jee.server:BoardProject"/><Context docBase="Board" path="/Board" reloadable="true" source="org.eclipse.jst.jee.server:Board"/></Host>
+    </Engine>
+  </Service>
+</Server>
+
