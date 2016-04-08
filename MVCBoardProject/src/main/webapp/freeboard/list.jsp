@@ -26,7 +26,9 @@
 				<tr>
 					<td width=10% class="tdcenter">${vo.no }</td>
 					<td width=45% class="tdleft">${vo.subject }</td>
-					<td width=15% class="tdcenter">${vo.name }</td>
+					<td width=15% class="tdcenter">
+						<a href="content.do?no=${vo.no }&page=${curpage}">${vo.name }</a>
+					</td>
 					<td width=20% class="tdcenter">
 					<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd"/>
 					</td>
