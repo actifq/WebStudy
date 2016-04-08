@@ -20,10 +20,10 @@ public class FileConfig {
 		
 		try{
 			
-			String path="C:\\springDev\\springStudy\\MVCBoardProject\\src\\main\\java\\";
+			String path="C:\\Users\\sist\\git\\22\\MVCBoardProject\\src\\main\\java\\";
 			
 			//경로명 바꾸기
-			// \\com\\sist\\board 로 경로명 수정완료
+			// \\\\com\\\\sist\\\\board 로 경로명 수정완료
 			path=path+pack.replace('.', '\\');
 
 			

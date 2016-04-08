@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<member>
+<memberlist id="a">
+	<no>1</no>
+	<name>홍길동1</name>
+	<sex>남자</sex>
+</memberlist>
+
+<memberlist id="b">
+	<no>2</no>
+	<name>홍길동2</name>
+	<sex>남자</sex>
+</memberlist>
+
+<memberlist id="c">
+	<no>3</no>
+	<name>홍길동3</name>
+	<sex>남자</sex>
+</memberlist>
+
+
+</member>

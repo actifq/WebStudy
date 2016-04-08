@@ -3,13 +3,16 @@ package com.sist.board.dao;
 import java.util.*;
 
 public class BoardVO {
+	
 	private int no;
 	private String name;
 	private String subject;
-	private String contetnt;
+	private String content;
 	private String pwd;
 	private Date regdate;
 	private int hit;
+	
+	
 	public int getNo() {
 		return no;
 	}
@@ -28,11 +31,11 @@ public class BoardVO {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public String getContetnt() {
-		return contetnt;
+	public String getContent() {
+		return content;
 	}
-	public void setContetnt(String contetnt) {
-		this.contetnt = contetnt;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public String getPwd() {
 		return pwd;
@@ -52,6 +55,7 @@ public class BoardVO {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+	
 	
 	
 	

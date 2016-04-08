@@ -42,6 +42,59 @@ public class BoardDAO {
 		session=ssf.openSession();
 		BoardVO vo=session.selectOne("boardContentData",no);
 		session.close();
+		
+		//원래 형변환해서 받아야되는데 제네릭이 자동으로 대입이되어서 자동 형변환!!!!!!
 		return vo;
 	}
+	
+	public static void boardInsert(BoardVO vo){
+		SqlSession session=ssf.openSession(true);
+		session.insert("boardInsert",vo);
+		session.close();
+	}
+	
+	public static BoardVO boardUpdate(int no){
+		SqlSession session=ssf.openSession();
+		BoardVO vo=session.selectOne("boardContentData",no);
+		session.close();
+		return vo;
+	}
+	
+	public static boolean boardUpdateOk(BoardVO vo){
+		boolean bCheck=false;
+		SqlSession session=ssf.openSession();
+		String pwd=session.selectOne("boardGetPwd", vo.getNo());
+		session.close();
+		
+		if(pwd.equals(vo.getPwd())){
+			bCheck=true;
+			session=ssf.openSession(true);
+			session.update("boardUpdate",vo);
+			session.close();
+		}
+		else{
+			bCheck=false;
+		}
+		
+		return bCheck;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

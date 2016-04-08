@@ -8,7 +8,7 @@
       <param-name>contextConfigLocation</param-name>
       <!-- 클래스 등록 위치 -->
       <!-- xml 넘기고, 위에 DispatcherServlet에서 받음 -->
-      <param-value>C:\springDev\springStudy\MVCBoardProject\src\main\webapp\WEB-INF\applicationContext.xml</param-value>
+      <param-value>C:\Users\sist\git\22\MVCBoardProject\src\main\webapp\WEB-INF\applicationContext.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>

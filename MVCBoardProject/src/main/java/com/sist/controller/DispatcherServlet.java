@@ -46,9 +46,7 @@ public class DispatcherServlet extends HttpServlet {
 			
 			String cmd=request.getRequestURI();
 			cmd=cmd.substring(request.getContextPath().length()+1);
-			
 			for(String strCls:list){
-				
 				//메모리할당
 				Class clsName=Class.forName(strCls);
 				
@@ -63,7 +61,6 @@ public class DispatcherServlet extends HttpServlet {
 					continue;
 
 				Object obj = clsName.newInstance();
-
 				Method[] methods = clsName.getDeclaredMethods();
 				for (Method m : methods) {
 					RequestMapping rm = m.getAnnotation(RequestMapping.class);
